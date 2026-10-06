@@ -1,0 +1,23 @@
+# Dependencies (thousands of files, reinstalled with npm install)
+node_modules/
+
+# Environment files contain secrets: NEVER commit them
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/*
+!.vscode/extensions.json
