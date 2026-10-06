@@ -1,0 +1,49 @@
+body {
+  background-color: var(--ah-bg);
+  color: var(--ah-text);
+  font-family: var(--ah-font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--ah-font-heading);
+  font-weight: 600;
+}
+
+/* Brand button: our own class layered on top of Bootstrap's .btn */
+.btn-attire {
+  background-color: var(--ah-primary);
+  color: var(--ah-white);
+  border: none;
+  border-radius: 50px;
+  padding: 0.65rem 1.75rem;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-attire:hover,
+.btn-attire:focus-visible {
+  background-color: #574fe0;
+  color: var(--ah-white);
+  transform: translateY(-2px);
+  box-shadow: var(--ah-shadow-hover);
+}
+
+.card-attire {
+  background: var(--ah-white);
+  border: none;
+  border-radius: var(--ah-radius);
+  box-shadow: var(--ah-shadow);
+}
+
+/* Respect users who ask their system to reduce motion (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

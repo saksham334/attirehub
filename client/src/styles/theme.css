@@ -1,0 +1,26 @@
+/* AttireHub design tokens.
+   Defining colors once as CSS variables means we can change the whole
+   brand look by editing this one file. */
+:root {
+  --ah-primary: #6c63ff;
+  --ah-secondary: #ff6584;
+  --ah-accent: #00c2a8;
+  --ah-highlight: #ffd166;
+  --ah-bg: #fff9f5;
+  --ah-text: #252525;
+  --ah-white: #ffffff;
+
+  --ah-radius: 16px;
+  --ah-shadow: 0 6px 24px rgba(37, 37, 37, 0.08);
+  --ah-shadow-hover: 0 12px 32px rgba(108, 99, 255, 0.18);
+
+  --ah-font-heading: "Poppins", sans-serif;
+  --ah-font-body: "Inter", sans-serif;
+
+  /* Override Bootstrap's own variables so its components use our brand */
+  --bs-primary: #6c63ff;
+  --bs-primary-rgb: 108, 99, 255;
+  --bs-body-font-family: var(--ah-font-body);
+  --bs-body-color: var(--ah-text);
+  --bs-body-bg: var(--ah-bg);
+}
