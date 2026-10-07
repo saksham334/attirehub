@@ -47,3 +47,42 @@ h6 {
     animation: none !important;
   }
 }
+
+/* ---------- Product card ---------- */
+.product-card {
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ah-shadow-hover);
+}
+
+.product-card__image-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4; /* keeps every image the same shape, no layout jump */
+  background: #eee;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge-sale,
+.badge-new {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 0.25rem 0.7rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-sale { background: var(--ah-secondary); color: var(--ah-white); }
+.badge-new  { background: var(--ah-accent);    color: var(--ah-white); }
+
+.rating { color: var(--ah-highlight); font-size: 0.8rem; }
