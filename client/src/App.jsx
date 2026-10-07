@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ComingSoon from "./pages/ComingSoon";
 import NotFound from "./pages/NotFound";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<ComingSoon title="Create an account" />} />
         {/* "*" matches anything not listed above */}
         <Route path="*" element={<NotFound />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
       </Route>
     </Routes>
   );

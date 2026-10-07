@@ -204,3 +204,41 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   border-color: var(--ah-primary);
   color: var(--ah-white);
 }
+
+/* ---------- Product card links ---------- */
+.product-card__title { color: var(--ah-text); text-decoration: none; }
+.product-card__title:hover { color: var(--ah-primary); }
+
+/* ---------- Product details ---------- */
+.gallery-main { position: relative; aspect-ratio: 3 / 4; overflow: hidden; }
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+
+.gallery-thumb {
+  width: 72px; aspect-ratio: 3 / 4; padding: 0; overflow: hidden;
+  border: 2px solid transparent; border-radius: 12px; background: none;
+}
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-thumb--active { border-color: var(--ah-primary); }
+
+.swatch {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid #ddd; box-shadow: inset 0 0 0 3px var(--ah-white);
+  padding: 0; transition: transform 0.15s ease;
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch--active { border-color: var(--ah-primary); outline: 2px solid var(--ah-primary); outline-offset: 2px; }
+
+.chip--lg { min-width: 48px; padding: 0.4rem 0.9rem; font-size: 0.9rem; }
+
+.qty-control {
+  display: inline-flex; align-items: center;
+  border: 1px solid #ddd; border-radius: 50px; background: var(--ah-white);
+}
+.qty-control button { border: 0; background: none; padding: 0.4rem 0.8rem; font-size: 1.1rem; }
+.qty-control button:disabled { opacity: 0.35; }
+.qty-control span { min-width: 2rem; text-align: center; font-weight: 600; }
+
+.product-tabs .nav-link { color: var(--ah-text); }
+.product-tabs .nav-link.active { color: var(--ah-primary); font-weight: 600; }
+
+.breadcrumb a { color: var(--ah-primary); text-decoration: none; }

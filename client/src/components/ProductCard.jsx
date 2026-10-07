@@ -1,16 +1,17 @@
+import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import { formatPrice } from "../utils/formatPrice";
 
-// A product is on sale when discountPrice is above 0
 function ProductCard({ product }) {
   const onSale = product.discountPrice > 0;
   const percentOff = onSale
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
     : 0;
+  const detailsPath = `/product/${product._id}`;
 
   return (
     <article className="product-card card-attire h-100">
-      <div className="product-card__image-wrap">
+      <Link to={detailsPath} className="product-card__image-wrap d-block">
         <img
           src={product.images[0]}
           alt={product.name}
@@ -19,11 +20,13 @@ function ProductCard({ product }) {
         />
         {onSale && <span className="badge-sale">-{percentOff}%</span>}
         {product.isNewArrival && !onSale && <span className="badge-new">New</span>}
-      </div>
+      </Link>
 
       <div className="p-3">
         <p className="small text-muted mb-1">{product.category}</p>
-        <h3 className="h6 mb-2">{product.name}</h3>
+        <h3 className="h6 mb-2">
+          <Link to={detailsPath} className="product-card__title">{product.name}</Link>
+        </h3>
         <Rating value={product.rating} count={product.numReviews} />
 
         <div className="mt-2">

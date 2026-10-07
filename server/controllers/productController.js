@@ -129,3 +129,28 @@ export const getFilterOptions = async (req, res) => {
     res.status(500).json({ message: "Could not load filter options" });
   }
 };
+
+// GET /api/products/:id/related: up to 4 popular products from the same category
+export const getRelatedProducts = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const related = await Product.find({
+      category: product.category,
+      _id: { $ne: product._id }, // exclude the product being viewed
+    })
+      .sort({ soldCount: -1 })
+      .limit(4);
+
+    res.json(related);
+  } catch (error) {
+    if (error.name === "CastError") {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    console.error(error);
+    res.status(500).json({ message: "Could not load related products" });
+  }
+};
