@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../services/productService";
 
-// Custom hook: loads products and exposes { products, loading, error, retry }
-function useProducts() {
-  const [products, setProducts] = useState([]);
+// Loads products for a params object. Reloads whenever the params change.
+function useProducts(params) {
+  const [data, setData] = useState({ products: [], total: 0, page: 1, pages: 1 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  // Changing this number re-runs the effect, which is how "Try again" works
   const [attempt, setAttempt] = useState(0);
 
+  // A string is a stable value, so the effect only re-runs on real changes
+  const key = JSON.stringify(params);
+
   useEffect(() => {
-    // Stops us updating state if the user leaves the page mid-request
     let ignore = false;
 
     const load = async () => {
+      setLoading(true);
+      setError("");
       try {
-        const data = await fetchProducts();
-        if (!ignore) setProducts(data);
+        const result = await fetchProducts(JSON.parse(key));
+        if (!ignore) setData(result);
       } catch (err) {
         console.error(err);
         if (!ignore) setError("Could not reach the server. Is the API running?");
@@ -29,15 +32,11 @@ function useProducts() {
     return () => {
       ignore = true;
     };
-  }, [attempt]);
+  }, [key, attempt]);
 
-  const retry = () => {
-    setLoading(true);
-    setError("");
-    setAttempt((n) => n + 1);
-  };
+  const retry = () => setAttempt((n) => n + 1);
 
-  return { products, loading, error, retry };
+  return { ...data, loading, error, retry };
 }
 
 export default useProducts;
