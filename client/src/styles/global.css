@@ -86,3 +86,86 @@ h6 {
 .badge-new  { background: var(--ah-accent);    color: var(--ah-white); }
 
 .rating { color: var(--ah-highlight); font-size: 0.8rem; }
+
+/* ---------- Layout shell ---------- */
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.app-main { flex: 1; }
+
+/* ---------- Announcement bar ---------- */
+.announcement-bar {
+  position: relative;
+  background: var(--ah-text);
+  color: var(--ah-white);
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 0.5rem 2.5rem;
+}
+.announcement-bar__close {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ah-white);
+  padding: 0.25rem;
+}
+
+/* ---------- Header ---------- */
+.site-header { position: sticky; top: 0; z-index: 1020; background: var(--ah-white); box-shadow: var(--ah-shadow); }
+.brand {
+  font-family: var(--ah-font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ah-primary);
+  text-decoration: none;
+}
+.brand:hover { color: var(--ah-primary); }
+
+.search-form { flex: 1 1 100%; }
+@media (min-width: 768px) {
+  .search-form { flex: 1 1 0; max-width: 560px; margin: 0 auto; }
+}
+.search-form .form-control { border-radius: 50px 0 0 50px; }
+.search-form .btn-attire { border-radius: 0 50px 50px 0; padding: 0.5rem 1.25rem; }
+
+.header-icons { display: flex; gap: 0.25rem; }
+.header-icon {
+  color: var(--ah-text);
+  font-size: 1.4rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 50%;
+  line-height: 1;
+}
+.header-icon:hover, .header-icon:focus-visible { color: var(--ah-primary); background: var(--ah-bg); }
+
+/* ---------- Category nav (scrolls sideways on small screens) ---------- */
+.category-nav { border-top: 1px solid #eee; background: var(--ah-white); }
+.category-list {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.category-list a { color: var(--ah-text); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+.category-list a:hover { color: var(--ah-primary); }
+.category-list a.text-sale { color: var(--ah-secondary); font-weight: 600; }
+
+/* ---------- Hero ---------- */
+.hero { background: linear-gradient(135deg, var(--ah-primary), var(--ah-secondary)); }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--ah-text); color: #c9c9c9; margin-top: 3rem; }
+.footer-links { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: 0.4rem; }
+.footer-links a { color: #c9c9c9; text-decoration: none; font-size: 0.9rem; }
+.footer-links a:hover { color: var(--ah-highlight); }
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--ah-accent);
+  outline-offset: 2px;
+}
