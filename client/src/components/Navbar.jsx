@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, InputGroup, Button } from "react-bootstrap";
+import { useCart } from "../context/CartContext";
 
 // Each category links to /shop with a query string the Shop page reads
 const categoryLinks = [
@@ -22,6 +23,7 @@ function AppNavbar() {
     const query = term.trim();
     navigate(query ? `/shop?search=${encodeURIComponent(query)}` : "/shop");
   };
+  const { itemCount, openDrawer } = useCart();
 
   return (
     <header className="site-header">
@@ -39,10 +41,16 @@ function AppNavbar() {
             <Link to="/wishlist" aria-label="Wishlist" className="header-icon">
               <i className="bi bi-heart" aria-hidden="true"></i>
             </Link>
-            <Link to="/cart" aria-label="Cart" className="header-icon">
+            <button
+              type="button"
+              onClick={openDrawer}
+              aria-label={`Open cart, ${itemCount} items`}
+              className="header-icon header-icon--btn position-relative"
+            >
               <i className="bi bi-bag" aria-hidden="true"></i>
-            </Link>
-          </div>
+              {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
+            </button>
+      </div>
 
           <Form role="search" onSubmit={handleSearch} className="search-form order-3 order-md-2">
             <Form.Label htmlFor="site-search" className="visually-hidden">

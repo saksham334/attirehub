@@ -8,6 +8,8 @@ import Rating from "../components/Rating";
 import RelatedProducts from "../components/RelatedProducts";
 import { formatPrice } from "../utils/formatPrice";
 import { getColorStyle } from "../utils/colorMap";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 // Outer component: loads the data and handles loading / error / not found
 function ProductDetails() {
@@ -33,6 +35,8 @@ function ProductDetails() {
 
 // Inner component: only runs once we definitely have a product
 function ProductView({ product }) {
+  const { addItem, openDrawer } = useCart();
+  const navigate = useNavigate();
   const [activeImage, setActiveImage] = useState(0);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
@@ -64,10 +68,15 @@ function ProductView({ product }) {
   // TEMPORARY: Step 12 replaces these with real cart logic
   const handleAddToCart = () => {
     if (!validateSelection()) return;
-    setNotice({
-      type: "info",
-      text: `Selected: ${product.name}, ${size}, ${color}, qty ${quantity}. The cart is connected in the next step.`,
-    });
+    addItem(product, size, color, quantity);
+    setNotice({ type: "", text: "" });
+    openDrawer();
+  };
+
+  const handleBuyNow = () => {
+    if (!validateSelection()) return;
+    addItem(product, size, color, quantity);
+  navigate("/cart");
   };
 
   const handleWishlist = () => {
@@ -210,7 +219,7 @@ function ProductView({ product }) {
             <button className="btn-attire" onClick={handleAddToCart} disabled={outOfStock}>
               <i className="bi bi-bag-plus me-2" aria-hidden="true"></i>Add to cart
             </button>
-            <button className="btn btn-outline-dark rounded-pill px-4" onClick={handleAddToCart} disabled={outOfStock}>
+            <button className="btn btn-outline-dark rounded-pill px-4" onClick={handleBuyNow} disabled={outOfStock}>
               Buy now
             </button>
             <button className="btn btn-outline-secondary rounded-circle" onClick={handleWishlist} aria-label="Add to wishlist">

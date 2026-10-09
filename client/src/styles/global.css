@@ -242,3 +242,21 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .product-tabs .nav-link.active { color: var(--ah-primary); font-weight: 600; }
 
 .breadcrumb a { color: var(--ah-primary); text-decoration: none; }
+
+/* ---------- Cart ---------- */
+.header-icon--btn { background: none; border: 0; }
+.cart-badge {
+  position: absolute; top: 0; right: 0;
+  min-width: 18px; height: 18px; padding: 0 5px;
+  background: var(--ah-secondary); color: var(--ah-white);
+  border-radius: 50px; font-size: 0.7rem; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+.cart-row { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #f0f0f0; }
+.cart-row:last-child { border-bottom: 0; }
+.cart-row__img { width: 72px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 12px; }
+.qty-control--sm button { padding: 0.15rem 0.6rem; }
+.summary-list > div { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+.summary-list dd, .summary-list dt { margin: 0; font-weight: 400; }
+.summary-total { border-top: 1px solid #eee; padding-top: 0.75rem; font-weight: 700; font-size: 1.15rem; }
+.summary-total dt, .summary-total dd { font-weight: 700; }
