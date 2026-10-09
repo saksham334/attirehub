@@ -6,6 +6,10 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import ComingSoon from "./pages/ComingSoon";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -18,8 +22,14 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<ComingSoon title="Checkout" />} />
         <Route path="/wishlist" element={<ComingSoon title="Your Wishlist" />} />
-        <Route path="/login" element={<ComingSoon title="Log in" />} />
-        <Route path="/register" element={<ComingSoon title="Create an account" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Pages that need a logged-in user */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        
         {/* "*" matches anything not listed above, so it goes last */}
         <Route path="*" element={<NotFound />} />
       </Route>

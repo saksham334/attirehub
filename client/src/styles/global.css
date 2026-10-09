@@ -260,3 +260,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .summary-list dd, .summary-list dt { margin: 0; font-weight: 400; }
 .summary-total { border-top: 1px solid #eee; padding-top: 0.75rem; font-weight: 700; font-size: 1.15rem; }
 .summary-total dt, .summary-total dd { font-weight: 700; }
+
+/* ---------- Account menu ---------- */
+.account-menu .nav-link { padding: 0; }
+.account-menu .dropdown-toggle::after { display: none; }
+

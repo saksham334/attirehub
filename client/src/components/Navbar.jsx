@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, InputGroup, Button } from "react-bootstrap";
 import { useCart } from "../context/CartContext";
+import { NavDropdown } from "react-bootstrap";
+import { useAuth } from "../context/AuthContext";
 
 // Each category links to /shop with a query string the Shop page reads
 const categoryLinks = [
@@ -24,6 +26,7 @@ function AppNavbar() {
     navigate(query ? `/shop?search=${encodeURIComponent(query)}` : "/shop");
   };
   const { itemCount, openDrawer } = useCart();
+  const { user, logout, isAdmin } = useAuth();
 
   return (
     <header className="site-header">
@@ -35,9 +38,24 @@ function AppNavbar() {
           </Link>
 
           <div className="header-icons ms-auto order-2 order-md-3">
-            <Link to="/login" aria-label="Account" className="header-icon">
-              <i className="bi bi-person" aria-hidden="true"></i>
-            </Link>
+            {user ? (
+             <NavDropdown
+                align="end"
+                title={<span className="header-icon d-inline-block"><i className="bi bi-person-check-fill" aria-hidden="true"></i><span className="visually-hidden">Account menu</span></span>}
+                id="account-menu"
+                className="account-menu"
+              >
+                <NavDropdown.Header>Hi, {user.name.split(" ")[0]}</NavDropdown.Header>
+                <NavDropdown.Item as={Link} to="/profile">My account</NavDropdown.Item>
+                {isAdmin && <NavDropdown.Item as={Link} to="/admin">Admin dashboard</NavDropdown.Item>}
+                <NavDropdown.Divider />
+                <NavDropdown.Item as="button" onClick={() => { logout(); navigate("/"); }}>Log out</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Link to="/login" aria-label="Log in" className="header-icon">
+                <i className="bi bi-person" aria-hidden="true"></i>
+              </Link>
+            )}
             <Link to="/wishlist" aria-label="Wishlist" className="header-icon">
               <i className="bi bi-heart" aria-hidden="true"></i>
             </Link>
