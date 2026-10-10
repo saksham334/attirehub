@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
   return (
@@ -21,10 +22,10 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<ComingSoon title="Checkout" />} />
-        <Route path="/wishlist" element={<ComingSoon title="Your Wishlist" />} />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
+        
         {/* Pages that need a logged-in user */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />

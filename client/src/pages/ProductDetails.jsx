@@ -10,6 +10,7 @@ import { formatPrice } from "../utils/formatPrice";
 import { getColorStyle } from "../utils/colorMap";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import WishlistButton from "../components/WishlistButton";
 
 // Outer component: loads the data and handles loading / error / not found
 function ProductDetails() {
@@ -79,10 +80,6 @@ function ProductView({ product }) {
   navigate("/cart");
   };
 
-  const handleWishlist = () => {
-    setNotice({ type: "info", text: "Wishlist saving needs login. It's built in a later step." });
-  };
-
   return (
     <Container className="py-4">
       <nav aria-label="Breadcrumb">
@@ -96,6 +93,7 @@ function ProductView({ product }) {
       </nav>
 
       <div className="row g-5">
+        
         {/* ---------- Gallery ---------- */}
         <div className="col-md-6">
           <div className="gallery-main card-attire">
@@ -222,9 +220,7 @@ function ProductView({ product }) {
             <button className="btn btn-outline-dark rounded-pill px-4" onClick={handleBuyNow} disabled={outOfStock}>
               Buy now
             </button>
-            <button className="btn btn-outline-secondary rounded-circle" onClick={handleWishlist} aria-label="Add to wishlist">
-              <i className="bi bi-heart" aria-hidden="true"></i>
-            </button>
+            <WishlistButton productId={product._id} className="wishlist-btn--lg" />
           </div>
 
           {notice.text && (

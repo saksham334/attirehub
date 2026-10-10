@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import { formatPrice } from "../utils/formatPrice";
+import WishlistButton from "./WishlistButton";
 
 function ProductCard({ product }) {
   const onSale = product.discountPrice > 0;
@@ -28,6 +29,8 @@ function ProductCard({ product }) {
           <Link to={detailsPath} className="product-card__title">{product.name}</Link>
         </h3>
         <Rating value={product.rating} count={product.numReviews} />
+
+        <WishlistButton productId={product._id} className="wishlist-btn--card" />
 
         <div className="mt-2">
           {onSale ? (
