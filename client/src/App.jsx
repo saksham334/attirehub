@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Wishlist from "./pages/Wishlist";
+import Checkout from "./pages/Checkout";
+import OrderConfirmation from "./pages/OrderConfirmation";
 
 function App() {
   return (
@@ -21,7 +23,6 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<ComingSoon title="Checkout" />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -31,6 +32,9 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Route>
         
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order-confirmation/:id" element={<OrderConfirmation />} />
+
         {/* "*" matches anything not listed above, so it goes last */}
         <Route path="*" element={<NotFound />} />
       </Route>
