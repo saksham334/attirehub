@@ -431,3 +431,5 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .admin-footer-link { width: auto; }
   .admin-main { padding: 1rem; }
 }
+
+.stock-pill--ok { background: #d4f1dd; color: #1b6b36; }

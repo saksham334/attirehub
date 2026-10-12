@@ -21,6 +21,9 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./admin/AdminDashboard";
 import AdminOrders from "./admin/AdminOrders";
 import AdminUsers from "./admin/AdminUsers";
+import AdminProducts from "./admin/AdminProducts";
+import AdminInventory from "./admin/AdminInventory";
+import ProductForm from "./admin/ProductForm";
 
 function App() {
   return (
@@ -54,11 +57,13 @@ function App() {
       {/* Admin area: separate layout, ADMIN role required */}
       <Route element={<ProtectedRoute adminOnly />}>
         <Route element={<AdminLayout />}>
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/products" element={<ComingSoon title="Products (next step)" />} />
-          <Route path="/admin/inventory" element={<ComingSoon title="Inventory (next step)" />} />
+          <Route path="/admin" element={<AdminDashboard />} />          
           <Route path="/admin/orders" element={<AdminOrders />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin/products/new" element={<ProductForm />} />
+          <Route path="/admin/products/:id/edit" element={<ProductForm />} />
+          <Route path="/admin/inventory" element={<AdminInventory />} />
         </Route>
       </Route>
     </Routes>
