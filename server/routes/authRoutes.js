@@ -2,7 +2,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import { body } from "express-validator";
 import {
-  registerUser, loginUser, getMe, updateProfile, changePassword,
+  registerUser, loginUser, getMe, updateProfile, changePassword,forgotPassword, resetPassword
 } from "../controllers/authController.js";
 import { protect, adminOnly } from "../middleware/authMiddleware.js";
 import validate from "../middleware/validate.js";
@@ -47,11 +47,22 @@ const passwordRules = [
     .withMessage("New password must be 8 to 72 characters"),
 ];
 
+const forgotRules = [
+  body("email").isString().isEmail().withMessage("Enter a valid email").normalizeEmail(),
+];
+
+const resetRules = [
+  body("password").isString().isLength({ min: 8, max: 72 })
+    .withMessage("Password must be 8 to 72 characters"),
+];
+
 router.post("/register", authLimiter, registerRules, validate, registerUser);
 router.post("/login", authLimiter, loginRules, validate, loginUser);
 router.get("/me", protect, getMe);
 router.put("/profile", protect, profileRules, validate, updateProfile);
 router.put("/password", authLimiter, protect, passwordRules, validate, changePassword);
+router.post("/forgot-password", authLimiter, forgotRules, validate, forgotPassword);
+router.post("/reset-password/:token", authLimiter, resetRules, validate, resetPassword);
 
 // TEMPORARY route to prove role protection works. We remove it later.
 router.get("/admin-check", protect, adminOnly, (req, res) => {

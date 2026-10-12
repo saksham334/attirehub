@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema(
       postalCode: { type: String, default: "" },
       country: { type: String, default: "" },
     },
+    // Password reset: we store only the HASH of the token
+      resetPasswordToken: { type: String, select: false },
+      resetPasswordExpires: { type: Date, select: false },
   },
   { timestamps: true } // adds createdAt and updatedAt
 );

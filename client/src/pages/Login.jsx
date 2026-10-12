@@ -49,6 +49,9 @@ function Login() {
             <input id="password" type="password" className="form-control" autoComplete="current-password"
               value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
+          <p className="text-end small mb-3">
+            <Link to="/forgot-password">Forgot your password?</Link>
+          </p>
           <button type="submit" className="btn-attire w-100" disabled={submitting}>
             {submitting ? "Logging in..." : "Log in"}
           </button>

@@ -20,3 +20,9 @@ export const updateProfileRequest = async (name, address) =>
 
 export const changePasswordRequest = async (currentPassword, newPassword) =>
   (await api.put("/auth/password", { currentPassword, newPassword })).data;
+
+export const forgotPasswordRequest = async (email) =>
+  (await api.post("/auth/forgot-password", { email })).data;
+
+export const resetPasswordRequest = async (token, password) =>
+  (await api.post(`/auth/reset-password/${token}`, { password })).data;
