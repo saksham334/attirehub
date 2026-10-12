@@ -13,6 +13,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Wishlist from "./pages/Wishlist";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import Orders from "./pages/Orders";
+import OrderDetails from "./pages/OrderDetails";
 
 function App() {
   return (
@@ -29,11 +31,14 @@ function App() {
         
         {/* Pages that need a logged-in user */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
         </Route>
         
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-confirmation/:id" element={<OrderConfirmation />} />
+
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/orders/:id" element={<OrderDetails />} />
 
         {/* "*" matches anything not listed above, so it goes last */}
         <Route path="*" element={<NotFound />} />

@@ -47,6 +47,7 @@ function AppNavbar() {
               >
                 <NavDropdown.Header>Hi, {user.name.split(" ")[0]}</NavDropdown.Header>
                 <NavDropdown.Item as={Link} to="/profile">My account</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/orders">My orders</NavDropdown.Item>
                 {isAdmin && <NavDropdown.Item as={Link} to="/admin">Admin dashboard</NavDropdown.Item>}
                 <NavDropdown.Divider />
                 <NavDropdown.Item as="button" onClick={() => { logout(); navigate("/"); }}>Log out</NavDropdown.Item>

@@ -83,7 +83,8 @@ function OrderConfirmation() {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="text-center d-flex flex-wrap justify-content-center gap-3">
+        <Link to="/orders" className="btn btn-outline-dark rounded-pill px-4">View my orders</Link>
         <Link to="/shop" className="btn-attire d-inline-block text-decoration-none">Continue shopping</Link>
       </div>
     </Container>

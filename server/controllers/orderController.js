@@ -112,3 +112,17 @@ export const getOrderById = async (req, res) => {
     res.status(500).json({ message: "Could not load order" });
   }
 };
+
+// GET /api/orders: the logged-in user's orders, newest first
+export const getMyOrders = async (req, res) => {
+  try {
+    // Filtering by req.user._id means nobody can list someone else's orders
+    const orders = await Order.find({ user: req.user._id })
+      .sort({ createdAt: -1 })
+      .limit(50);
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not load orders" });
+  }
+};

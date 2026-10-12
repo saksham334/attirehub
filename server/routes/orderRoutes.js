@@ -2,7 +2,7 @@ import express from "express";
 import { body } from "express-validator";
 import { protect } from "../middleware/authMiddleware.js";
 import validate from "../middleware/validate.js";
-import { createOrder, getOrderById } from "../controllers/orderController.js";
+import { createOrder, getOrderById, getMyOrders } from "../controllers/orderController.js";
 
 const router = express.Router();
 
@@ -26,6 +26,9 @@ const orderRules = [
     .withMessage("Choose a payment method"),
 ];
 
+router.post("/", orderRules, validate, createOrder);
+router.get("/:id", getOrderById);
+router.get("/", getMyOrders);
 router.post("/", orderRules, validate, createOrder);
 router.get("/:id", getOrderById);
 
