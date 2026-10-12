@@ -191,3 +191,73 @@ export const addReview = async (req, res) => {
     res.status(500).json({ message: "Could not save review" });
   }
 };
+
+// Only these fields can be set by an admin form (blocks rating, reviews, soldCount)
+const PRODUCT_FIELDS = [
+  "name", "description", "price", "discountPrice", "category", "subcategory",
+  "brand", "images", "colors", "sizes", "materials", "stock", "sku",
+  "featured", "isNewArrival",
+];
+
+const pickProductFields = (body) => {
+  const data = {};
+  PRODUCT_FIELDS.forEach((field) => {
+    if (body[field] !== undefined) data[field] = body[field];
+  });
+  return data;
+};
+
+// Turns database errors into readable 400 messages
+const handleProductError = (error, res, fallback) => {
+  if (error.code === 11000) {
+    return res.status(400).json({ message: "That SKU is already used by another product" });
+  }
+  if (error.name === "ValidationError") {
+    return res.status(400).json({ message: Object.values(error.errors)[0].message });
+  }
+  console.error(error);
+  res.status(500).json({ message: fallback });
+};
+
+// POST /api/products (admin)
+export const createProduct = async (req, res) => {
+  try {
+    const product = await Product.create(pickProductFields(req.body));
+    res.status(201).json(product);
+  } catch (error) {
+    handleProductError(error, res, "Could not create product");
+  }
+};
+
+// PUT /api/products/:id (admin)
+export const updateProduct = async (req, res) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+
+    product.set(pickProductFields(req.body));
+    await product.save(); // runs the schema validation again
+    res.json(product);
+  } catch (error) {
+    handleProductError(error, res, "Could not update product");
+  }
+};
+
+// DELETE /api/products/:id (admin)
+// Old orders keep their own copy of name, price and image, so they are not affected
+export const deleteProduct = async (req, res) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json({ message: "Product deleted" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not delete product" });
+  }
+};

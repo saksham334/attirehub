@@ -64,9 +64,4 @@ router.put("/password", authLimiter, protect, passwordRules, validate, changePas
 router.post("/forgot-password", authLimiter, forgotRules, validate, forgotPassword);
 router.post("/reset-password/:token", authLimiter, resetRules, validate, resetPassword);
 
-// TEMPORARY route to prove role protection works. We remove it later.
-router.get("/admin-check", protect, adminOnly, (req, res) => {
-  res.json({ message: `Welcome, admin ${req.user.name}` });
-});
-
 export default router;
