@@ -292,3 +292,28 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .tracker__step--done .tracker__dot { background: var(--ah-primary); }
 .tracker__label { display: block; font-size: 0.8rem; margin-top: 0.4rem; }
+
+/* ---------- Wishlist heart ---------- */
+.product-card { position: relative; }
+
+.wishlist-btn {
+  background: var(--ah-white);
+  border: 0;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ah-text);
+  box-shadow: var(--ah-shadow);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.wishlist-btn:hover { transform: scale(1.1); color: var(--ah-secondary); }
+.wishlist-btn--active { color: var(--ah-secondary); }
+
+/* Floats over the top-right corner of the product image */
+.wishlist-btn--card { position: absolute; top: 12px; right: 12px; z-index: 2; }
+
+/* Bigger version on the product details page */
+.wishlist-btn--lg { width: 44px; height: 44px; border: 1px solid #ddd; box-shadow: none; }
