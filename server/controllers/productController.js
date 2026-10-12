@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Product from "../models/Product.js";
 
 // GET /api/products
@@ -152,5 +153,41 @@ export const getRelatedProducts = async (req, res) => {
     }
     console.error(error);
     res.status(500).json({ message: "Could not load related products" });
+  }
+};
+
+// POST /api/products/:id/reviews  body: { rating, comment } (logged-in users)
+export const addReview = async (req, res) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+
+    // One review per user per product
+    const already = product.reviews.some((r) => String(r.user) === String(req.user._id));
+    if (already) {
+      return res.status(400).json({ message: "You have already reviewed this product" });
+    }
+
+    const rating = Number(req.body.rating);
+    product.reviews.push({
+      user: req.user._id,
+      name: req.user.name, // from the token's user, not from the request body
+      rating,
+      comment: req.body.comment,
+    });
+
+    // Weighted average, so the sample ratings (e.g. 4.7 from 128 reviews) are respected
+    const total = product.rating * product.numReviews + rating;
+    product.numReviews += 1;
+    product.rating = Math.round((total / product.numReviews) * 10) / 10;
+
+    await product.save();
+    res.status(201).json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not save review" });
   }
 };

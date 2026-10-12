@@ -10,7 +10,7 @@ function Rating({ value = 0, count = 0 }) {
   return (
     <div className="rating" aria-label={`Rated ${value} out of 5 from ${count} reviews`}>
       {stars}
-      <span className="ms-1 small text-muted">({count})</span>
+      {count > 0 && <span className="ms-1 small text-muted">({count})</span>}
     </div>
   );
 }

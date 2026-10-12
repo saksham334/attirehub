@@ -317,3 +317,53 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* Bigger version on the product details page */
 .wishlist-btn--lg { width: 44px; height: 44px; border: 1px solid #ddd; box-shadow: none; }
+
+/* ---------- Reviews ---------- */
+.review-item {
+  background: var(--ah-white);
+  border-radius: var(--ah-radius);
+  box-shadow: var(--ah-shadow);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.review-item__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.4rem;
+}
+.review-item__name { font-family: var(--ah-font-heading); }
+.review-item__date { margin-left: auto; font-size: 0.8rem; color: #6b6b6b; }
+
+/* Review description text */
+.review-item__text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ah-text);
+  overflow-wrap: anywhere; /* long words never break the layout */
+}
+
+/* "Log in" link */
+.review-link {
+  color: var(--ah-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.review-link:hover { color: var(--ah-secondary); }
+
+.review-form {
+  max-width: 520px;
+  background: var(--ah-white);
+  border-radius: var(--ah-radius);
+  box-shadow: var(--ah-shadow);
+  padding: 1.25rem;
+}
+.review-form .form-control:focus,
+.review-form .form-select:focus {
+  border-color: var(--ah-primary);
+  box-shadow: 0 0 0 0.2rem rgba(108, 99, 255, 0.2);
+}

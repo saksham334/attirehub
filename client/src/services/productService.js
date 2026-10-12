@@ -20,3 +20,6 @@ export const fetchRelatedProducts = async (id) => {
   const { data } = await api.get(`/products/${id}/related`);
   return data;
 };
+
+export const submitReview = async (productId, rating, comment) =>
+  (await api.post(`/products/${productId}/reviews`, { rating, comment })).data;

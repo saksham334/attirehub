@@ -11,6 +11,7 @@ import { getColorStyle } from "../utils/colorMap";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import WishlistButton from "../components/WishlistButton";
+import ReviewSection from "../components/ReviewSection";
 
 // Outer component: loads the data and handles loading / error / not found
 function ProductDetails() {
@@ -43,6 +44,7 @@ function ProductView({ product }) {
   const [color, setColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [notice, setNotice] = useState({ type: "", text: "" });
+  const [reviewData, setReviewData] = useState({ reviews: product.reviews, rating: product.rating, numReviews: product.numReviews, });
 
   const onSale = product.discountPrice > 0;
   const currentPrice = onSale ? product.discountPrice : product.price;
@@ -120,7 +122,7 @@ function ProductView({ product }) {
         <div className="col-md-6">
           <p className="text-muted small mb-1">{product.brand} &middot; SKU {product.sku}</p>
           <h1 className="h2 mb-2">{product.name}</h1>
-          <Rating value={product.rating} count={product.numReviews} />
+          <Rating value={reviewData.rating} count={reviewData.numReviews} />
 
           <div className="my-3 d-flex align-items-baseline gap-3">
             <span className="display-6 fw-bold" style={{ color: onSale ? "var(--ah-secondary)" : "inherit" }}>
@@ -245,20 +247,16 @@ function ProductView({ product }) {
           </ul>
           <p className="small text-muted">Demo store: no real orders are shipped.</p>
         </Tab>
-        <Tab eventKey="reviews" title={`Reviews (${product.numReviews})`} className="pt-3">
-          {product.reviews.length === 0 ? (
-            <p className="text-muted">
-              Rated {product.rating} out of 5 by {product.numReviews} customers.
-              Written reviews and a review form are added in a later step.
-            </p>
-          ) : (
-            product.reviews.map((r) => (
-              <div key={r._id} className="mb-3">
-                <strong>{r.name}</strong> <Rating value={r.rating} />
-                <p className="mb-0">{r.comment}</p>
-              </div>
-            ))
-          )}
+        <Tab eventKey="reviews" title={`Reviews (${reviewData.numReviews})`} className="pt-3">
+          <ReviewSection
+            productId={product._id}
+            reviews={reviewData.reviews}
+            rating={reviewData.rating}
+            numReviews={reviewData.numReviews}
+            onAdded={(updated) =>
+              setReviewData({ reviews: updated.reviews, rating: updated.rating, numReviews: updated.numReviews })
+            }
+          />
         </Tab>
       </Tabs>
 

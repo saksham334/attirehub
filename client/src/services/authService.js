@@ -14,3 +14,9 @@ export const fetchMe = async () => {
   const { data } = await api.get("/auth/me");
   return data;
 };
+
+export const updateProfileRequest = async (name, address) =>
+  (await api.put("/auth/profile", { name, address })).data;
+
+export const changePasswordRequest = async (currentPassword, newPassword) =>
+  (await api.put("/auth/password", { currentPassword, newPassword })).data;

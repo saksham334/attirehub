@@ -54,3 +54,53 @@ export const loginUser = async (req, res) => {
 export const getMe = (req, res) => {
   res.json(userResponse(req.user));
 };
+
+// PUT /api/auth/profile  body: { name, address }
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, address = {} } = req.body;
+
+    // We pick each field by name, so nothing else (like role) can be changed here
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        name,
+        address: {
+          street: address.street || "",
+          city: address.city || "",
+          state: address.state || "",
+          postalCode: address.postalCode || "",
+          country: address.country || "",
+        },
+      },
+      { returnDocument: "after", runValidators: true }
+    );
+    res.json(userResponse(user));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not update profile" });
+  }
+};
+
+// PUT /api/auth/password  body: { currentPassword, newPassword }
+export const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    // +password brings back the hidden hash so we can check the old password
+    const user = await User.findById(req.user._id).select("+password");
+
+    if (!(await user.matchPassword(currentPassword))) {
+      return res.status(400).json({ message: "Current password is incorrect" });
+    }
+
+    // The pre-save hook in User.js hashes the new password automatically
+    user.password = newPassword;
+    await user.save();
+
+    res.json({ message: "Password updated" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not change password" });
+  }
+};

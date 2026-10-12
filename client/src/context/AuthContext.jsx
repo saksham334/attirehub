@@ -49,7 +49,10 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const value = { user, loading, isAdmin: user?.role === "ADMIN", login, register, logout };
+  // Lets other pages refresh the stored user after an edit
+  const updateUser = (data) => setUser(data);
+
+  const value = { user, loading, isAdmin: user?.role === "ADMIN", login, register, logout, updateUser };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
