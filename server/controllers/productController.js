@@ -45,6 +45,7 @@ export const getProducts = async (req, res) => {
     if (category && typeof category === "string") query.category = category;
     if (filter === "new") query.isNewArrival = true;
     if (filter === "sale") query.discountPrice = { $gt: 0 };
+    if (filter === "featured") query.featured = true;
     if (size && typeof size === "string") query.sizes = size;
     if (color && typeof color === "string") {
       query.colors = new RegExp(`^${escapeRegex(color)}$`, "i");
