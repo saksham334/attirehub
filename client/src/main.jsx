@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { WishlistProvider } from "./context/WishlistContext.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 
 // Import order matters: Bootstrap first, then our files so ours can override it
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,7 +21,9 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <WishlistProvider>
           <CartProvider>
+            <ErrorBoundary>
             <App />
+            </ErrorBoundary>
           </CartProvider>
         </WishlistProvider>  
       </AuthProvider>

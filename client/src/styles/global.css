@@ -485,3 +485,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .newsletter__form { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; max-width: 520px; margin: 0 auto; }
 .newsletter__form .form-control { flex: 1 1 240px; border-radius: 50px; }
+
+/* ---------- Skeleton loaders ---------- */
+.skeleton {
+  background: linear-gradient(90deg, #ececec 25%, #f6f6f6 50%, #ececec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 8px;
+}
+.skeleton--image { aspect-ratio: 3 / 4; border-radius: var(--ah-radius) var(--ah-radius) 0 0; }
+.skeleton--line { height: 14px; margin-bottom: 0.7rem; }
+.skeleton--short { width: 55%; }
+.skeleton-card { overflow: hidden; }
+@keyframes shimmer { to { background-position: -200% 0; } }

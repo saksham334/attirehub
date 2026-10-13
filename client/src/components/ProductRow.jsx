@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import ProductCard from "./ProductCard";
-import LoadingSpinner from "./LoadingSpinner";
 import ErrorMessage from "./ErrorMessage";
 import useProducts from "../hooks/useProducts";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 // A titled row of products loaded with the given API params
 function ProductRow({ title, params, viewAllTo, children }) {
@@ -16,7 +16,7 @@ function ProductRow({ title, params, viewAllTo, children }) {
         {viewAllTo && <Link to={viewAllTo} className="small">View all</Link>}
       </div>
       {children}
-      {loading && <LoadingSpinner text="Loading..." />}
+      {loading && <ProductSkeleton count={4} colClass="col-6 col-md-3" />}
       {error && <ErrorMessage message={error} onRetry={retry} />}
       {!loading && !error && products.length === 0 && <p className="text-muted">Nothing here yet.</p>}
       <div className="row g-4">

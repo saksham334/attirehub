@@ -14,6 +14,7 @@ const NEW_ARRIVALS = { filter: "new", sort: "newest", limit: 4 };
 const FEATURED = { filter: "featured", limit: 4 };
 
 function Home() {
+  
   return (
     <>
       <HeroCarousel />

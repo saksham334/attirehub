@@ -15,4 +15,22 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// If the server says our token is no longer valid, clear it and go to login
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const url = error.config?.url || "";
+    const isAuthCall = url.startsWith("/auth/login") || url.startsWith("/auth/register");
+    if (error.response?.status === 401 && !isAuthCall) {
+      try {
+        if (localStorage.getItem("attirehub_token")) {
+          localStorage.removeItem("attirehub_token");
+          window.location.assign("/login");
+        }
+      } catch { /* ignore */ }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;

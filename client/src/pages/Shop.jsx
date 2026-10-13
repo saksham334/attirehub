@@ -3,9 +3,9 @@ import { Container } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
 import FilterSidebar from "../components/FilterSidebar";
 import Pagination from "../components/Pagination";
-import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 import useProducts from "../hooks/useProducts";
+import ProductSkeleton from "../components/ProductSkeleton";
 
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },
@@ -83,7 +83,7 @@ function Shop() {
         </div>
 
         <div className="col-lg-9">
-          {loading && <LoadingSpinner text="Loading products..." />}
+          {loading && <ProductSkeleton count={6} colClass="col-6 col-md-4" />}
           {error && <ErrorMessage message={error} onRetry={retry} />}
 
           {!loading && !error && products.length === 0 && (
