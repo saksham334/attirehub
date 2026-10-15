@@ -1,46 +1,12 @@
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import productRoutes from "./routes/productRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
-import wishlistRoutes from "./routes/wishlistRoutes.js";
-import cartRoutes from "./routes/cartRoutes.js";
-import orderRoutes from "./routes/orderRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import app from "./app.js";
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_URL }));
-app.use(express.json());
-app.use("/api/auth", authRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/wishlist", wishlistRoutes);
-app.use("/api/cart", cartRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/admin", adminRoutes);
-app.use(express.json({ limit: "100kb" }));
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", message: "AttireHub API is running" });
-});
-
-// Every URL starting with /api/products is handled by productRoutes
-app.use("/api/products", productRoutes);
-
-app.use((req, res) => {
-  res.status(404).json({ message: `Route not found: ${req.originalUrl}` });
-});
-
-app.use(notFound);
-app.use(errorHandler);
-
+// Connect to the database first, then start accepting requests
 const startServer = async () => {
   await connectDB();
   app.listen(PORT, () => {
