@@ -6,6 +6,7 @@ import { useCart } from "../context/CartContext";
 import { createOrderRequest } from "../services/orderService";
 import { saveCartRequest } from "../services/cartService";
 import { formatPrice } from "../utils/formatPrice";
+import usePageTitle from "../hooks/usePageTitle";
 
 const PAYMENT_OPTIONS = [
   { value: "CARD_DEMO", label: "Credit / Debit Card (demo mode)", icon: "bi-credit-card" },
@@ -14,6 +15,7 @@ const PAYMENT_OPTIONS = [
 ];
 
 function Checkout() {
+  usePageTitle("Checkout");
   const { user } = useAuth();
   const { items, subtotal, shipping, tax, total, clearCart } = useCart();
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ function Checkout() {
   const [payment, setPayment] = useState("CARD_DEMO");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
+  
   // Nothing to buy
   if (items.length === 0 && !submitting) {
     return (

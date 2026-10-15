@@ -8,9 +8,11 @@ import CartDrawer from "../components/CartDrawer";
 function MainLayout() {
   return (
     <div className="app-shell">
+      {/* First thing a keyboard user reaches: jumps past the header */}
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <AnnouncementBar />
       <AppNavbar />
-      <main className="app-main">
+      <main id="main-content" tabIndex={-1} className="app-main">
         {/* Outlet is where the current page (Home, Shop...) is drawn */}
         <Outlet />
       </main>

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import WishlistButton from "../components/WishlistButton";
 import ReviewSection from "../components/ReviewSection";
+import usePageTitle from "../hooks/usePageTitle";
 
 // Outer component: loads the data and handles loading / error / not found
 function ProductDetails() {
@@ -37,6 +38,7 @@ function ProductDetails() {
 
 // Inner component: only runs once we definitely have a product
 function ProductView({ product }) {
+  usePageTitle(product.name);
   const { addItem, openDrawer } = useCart();
   const navigate = useNavigate();
   const [activeImage, setActiveImage] = useState(0);

@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
+import usePageTitle from "../hooks/usePageTitle";
 
 function Login() {
+  usePageTitle("Log in");
+  
   const { user, login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

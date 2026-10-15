@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import { updateProfileRequest, changePasswordRequest } from "../services/authService";
+import usePageTitle from "../hooks/usePageTitle";
 
 const ADDRESS_FIELDS = [
   { name: "street", label: "Street address", col: "col-12", auto: "street-address" },
@@ -12,6 +13,8 @@ const ADDRESS_FIELDS = [
 ];
 
 function Profile() {
+  usePageTitle("My account");
+
   const { user, updateUser } = useAuth();
 
   // ----- Profile form -----

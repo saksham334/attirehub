@@ -6,8 +6,11 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 import { useWishlist } from "../context/WishlistContext";
 import { fetchWishlist } from "../services/wishlistService";
+import usePageTitle from "../hooks/usePageTitle";
 
 function Wishlist() {
+  usePageTitle("Wishlist");
+  
   const { ids } = useWishlist();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);

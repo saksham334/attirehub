@@ -4,8 +4,11 @@ import { useCart } from "../context/CartContext";
 import CartItemRow from "../components/CartItemRow";
 import { formatPrice } from "../utils/formatPrice";
 import { FREE_SHIPPING_THRESHOLD } from "../utils/calculateTotals";
+import usePageTitle from "../hooks/usePageTitle";
 
 function Cart() {
+  usePageTitle("Cart");
+  
   const { items, subtotal, shipping, tax, total, clearCart } = useCart();
 
   if (items.length === 0) {

@@ -6,6 +6,7 @@ import Countdown from "../components/Countdown";
 import PromoBanners from "../components/PromoBanners";
 import Testimonials from "../components/Testimonials";
 import Newsletter from "../components/Newsletter";
+import usePageTitle from "../hooks/usePageTitle";
 
 // Params objects live OUTSIDE the component so they never change between renders
 const TRENDING = { sort: "popular", limit: 4 };
@@ -14,6 +15,7 @@ const NEW_ARRIVALS = { filter: "new", sort: "newest", limit: 4 };
 const FEATURED = { filter: "featured", limit: 4 };
 
 function Home() {
+  usePageTitle("");
   
   return (
     <>

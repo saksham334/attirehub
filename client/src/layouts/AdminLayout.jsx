@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import usePageTitle from "../hooks/usePageTitle";
 
 const LINKS = [
   { to: "/admin", label: "Dashboard", icon: "bi-speedometer2", end: true },
@@ -11,6 +12,8 @@ const LINKS = [
 
 // A different shell from the storefront: sidebar instead of the shop header
 function AdminLayout() {
+  usePageTitle("Admin");
+
   const { user, logout } = useAuth();
 
   return (

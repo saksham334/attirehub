@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
+import usePageTitle from "../hooks/usePageTitle";
 
 function Register() {
+  usePageTitle("Create account");
+  
   const { user, register } = useAuth();
   const navigate = useNavigate();
 

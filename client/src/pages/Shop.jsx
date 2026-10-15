@@ -6,6 +6,7 @@ import Pagination from "../components/Pagination";
 import ErrorMessage from "../components/ErrorMessage";
 import useProducts from "../hooks/useProducts";
 import ProductSkeleton from "../components/ProductSkeleton";
+import usePageTitle from "../hooks/usePageTitle";
 
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },
@@ -45,6 +46,8 @@ function Shop() {
   else if (filter === "new") title = "New Arrivals";
   else if (filter === "sale") title = "Sale";
   else if (category) title = category;
+
+  usePageTitle(title);
 
   return (
     <Container className="py-5">

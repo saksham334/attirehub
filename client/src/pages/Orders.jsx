@@ -7,8 +7,10 @@ import OrderStatusBadge from "../components/OrderStatusBadge";
 import { fetchMyOrders } from "../services/orderService";
 import { formatPrice } from "../utils/formatPrice";
 import { formatDate } from "../utils/formatDate";
+import usePageTitle from "../hooks/usePageTitle";
 
 function Orders() {
+  usePageTitle("My orders");
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
