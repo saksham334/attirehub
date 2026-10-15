@@ -8,6 +8,7 @@ dotenv.config();
 const createAdmin = async () => {
   await connectDB();
 
+  console.log("Database:", mongoose.connection.name);
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
   if (!email || !password) {
