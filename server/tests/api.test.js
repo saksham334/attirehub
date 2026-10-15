@@ -31,7 +31,7 @@ describe("Validation runs before the database", () => {
       .post("/api/auth/register")
       .send({ name: "Test", email: "test@example.com", password: "123" });
     expect(res.status).toBe(400);
-    expect(res.body.message).toContain("at least 8 characters");
+    expect(res.body.message).toBe("Password must be 8 to 72 characters");
   });
 
   it("blocks a NoSQL injection attempt on login", async () => {
@@ -39,6 +39,14 @@ describe("Validation runs before the database", () => {
       .post("/api/auth/login")
       .send({ email: { $gt: "" }, password: "x" });
     expect(res.status).toBe(400);
+  });
+
+    it("rejects MongoDB operator keys anywhere in the body", async () => {
+    const res = await request(app)
+      .post("/api/auth/login")
+      .send({ email: "a@b.com", password: { $ne: 1 } });
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("Invalid characters in request");
   });
 });
 

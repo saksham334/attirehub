@@ -17,9 +17,11 @@ const authLimiter = rateLimit({
 });
 
 const registerRules = [
-  body("name").isString().trim().notEmpty().withMessage("Name is required"),
+  body("name").isString().trim().notEmpty().withMessage("Name is required")
+    .isLength({ max: 100 }).withMessage("Name is too long"),
   body("email").isString().isEmail().withMessage("Enter a valid email").normalizeEmail(),
-  body("password").isString().isLength({ min: 8 }).withMessage("Password must be at least 8 characters"),
+  body("password").isString().isLength({ min: 8, max: 72 })
+    .withMessage("Password must be 8 to 72 characters"),
 ];
 
 const loginRules = [
